@@ -1,0 +1,20 @@
+#!/bin/sh
+#
+# description 
+
+EXEC=
+
+
+case "$1" in
+    start)
+        ;;
+    stop)
+        ;;
+    restart)
+        ;;
+    status)
+	;;
+    *)
+        echo "Please use start, stop, restart, or status as first argument"
+        ;;
+esac
