@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# Simple csf/lfd init.d script.
+
+EXEC=/usr/sbin/csf
+
+
+case "$1" in
+    start)
+	    $EXEC -e;
+        ;;
+    stop)
+	    $EXEC -x;
+        ;;
+    restart)
+	    $EXEC -r;
+        ;;
+    status)
+	    $EXEC -l;
+	;;
+    status6)
+	    $EXEC -l6
+	;;
+    *)
+        echo "Please use start, stop, restart, status or status6 as first argument"
+        ;;
+esac

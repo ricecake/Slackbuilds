@@ -1,0 +1,8 @@
+PRGNAM="csf"
+VERSION="1.0"
+HOMEPAGE="http://configserver.com/cp/csf.html"
+DOWNLOAD="http://configserver.com/free/csf.tgz"
+MD5SUM="78e1a969d594867e59eac8728f1ca899"
+REQUIRES=""
+MAINTAINER="Sebastian Green-Husted"
+EMAIL="ricecake@tfm.nu"

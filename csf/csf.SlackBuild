@@ -1,0 +1,121 @@
+#!/bin/sh
+
+# Slackware build script for the csf firewall tool
+# Originally written by Sebastian Green-Husted <ricecake@tfm.nu>
+
+PRGNAM=csf
+VERSION=${VERSION:-1.0}
+BUILD=${BUILD:-1}
+TAG=${TAG:-SBo}
+
+
+CWD=$(pwd)
+TMP=${TMP:-/tmp/SBo}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+doMove() {
+	FILE="$1";
+	DIR="$2";
+	NEWFILE="$DIR/$FILE.new";
+	cp -avf $FILE $NEWFILE
+}
+
+set -eu
+
+rm -rf $PKG
+mkdir -p $TMP $PKG $OUTPUT
+cd $TMP
+rm -rf $PRGNAM
+tar xvf $CWD/$PRGNAM.tgz
+chown -R root:root $PRGNAM
+chmod -R u+w,go+r-w,a-s $PRGNAM
+cd $PRGNAM
+
+####################
+mkdir -p $PKG/etc/csf/{zone,stats,lock,ui}
+mkdir -p $PKG/etc/cron.d/ $PKG/usr/sbin/
+cp -avf lfdcron.sh $PKG/etc/cron.d/lfdcron.sh
+cp -avf csf.pl $PKG/etc/csf/
+cp -avf csfui.pl $PKG/etc/csf/
+cp -avf cseui.pl $PKG/etc/csf/
+cp -avf csftest.pl $PKG/etc/csf/
+cp -avf lfd.pl $PKG/etc/csf/
+cp -avf regex.pm $PKG/etc/csf/
+cp -avf servercheck.pm $PKG/etc/csf/
+cp -avf readme.txt $PKG/etc/csf/
+cp -avf sanity.txt $PKG/etc/csf/
+cp -avf x-arf.txt $PKG/etc/csf/
+cp -avf changelog.txt $PKG/etc/csf/
+cp -avf install.txt $PKG/etc/csf/
+cp -avf version.txt $PKG/etc/csf/
+cp -avf license.txt $PKG/etc/csf/
+cp -avf Net $PKG/etc/csf/
+cp -avf Geo $PKG/etc/csf/
+cp -avf Crypt $PKG/etc/csf/
+cp -avf HTTP $PKG/etc/csf/
+cp -avf csf.div $PKG/etc/csf/
+cp -arfR ui $PKG/etc/csf/
+cp -avf csfcron.sh $PKG/etc/cron.d/csfcron.sh
+################################
+cp -avf csf.generic.conf $PKG/etc/csf/csf.conf.new
+doMove csf.allow $PKG/etc/csf/
+doMove csf.deny $PKG/etc/csf/
+doMove csf.redirect $PKG/etc/csf/
+doMove csf.dirwatch $PKG/etc/csf/
+doMove csf.logfiles $PKG/etc/csf/
+doMove csf.logignore $PKG/etc/csf/
+doMove logalert.txt $PKG/etc/csf/
+doMove csf.ignore $PKG/etc/csf/
+doMove csf.generic.pignore $PKG/etc/csf/
+doMove csf.rignore $PKG/etc/csf/
+doMove csf.fignore $PKG/etc/csf/
+doMove csf.signore $PKG/etc/csf/
+doMove csf.suignore $PKG/etc/csf/
+doMove csf.mignore $PKG/etc/csf/
+doMove csf.sips $PKG/etc/csf/
+doMove csf.dyndns $PKG/etc/csf/
+doMove alert.txt $PKG/etc/csf/
+doMove logfloodalert.txt $PKG/etc/csf/
+doMove syslogalert.txt $PKG/etc/csf/
+doMove integrityalert.txt $PKG/etc/csf/
+doMove exploitalert.txt $PKG/etc/csf/
+doMove tracking.txt $PKG/etc/csf/
+doMove connectiontracking.txt $PKG/etc/csf/
+doMove processtracking.txt $PKG/etc/csf/
+doMove accounttracking.txt $PKG/etc/csf/
+doMove usertracking.txt $PKG/etc/csf/
+doMove sshalert.txt $PKG/etc/csf/
+doMove sualert.txt $PKG/etc/csf/
+doMove consolealert.txt $PKG/etc/csf/
+doMove uialert.txt $PKG/etc/csf/
+doMove scriptalert.txt $PKG/etc/csf/
+doMove filealert.txt $PKG/etc/csf/
+doMove watchalert.txt $PKG/etc/csf/
+doMove loadalert.txt $PKG/etc/csf/
+doMove resalert.txt $PKG/etc/csf/
+doMove portscan.txt $PKG/etc/csf/
+doMove permblock.txt $PKG/etc/csf/
+doMove netblock.txt $PKG/etc/csf/
+doMove messenger $PKG/etc/csf/
+doMove portknocking.txt $PKG/etc/csf/
+doMove forkbombalert.txt $PKG/etc/csf/
+doMove regex.custom.pm $PKG/etc/csf/
+doMove pt_deleted_action.pl $PKG/etc/csf/
+ln -sv /etc/csf/csf.pl $PKG/usr/sbin/csf
+ln -sv /etc/csf/lfd.pl $PKG/usr/sbin/lfd
+chown -R root:root $PKG/etc/csf $PKG/usr/sbin/csf $PKG/usr/sbin/lfd
+chmod -v 700 $PKG/etc/csf/*.pl
+chmod -v 700 $PKG/etc/csf/*.pm
+chmod -v 644 $PKG/etc/cron.d/lfdcron.sh
+chmod -v 644 $PKG/etc/cron.d/csfcron.sh
+############################################
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+cd $PKG
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-i386-$BUILD$TAG.${PKGTYPE:-tgz}
