@@ -1,11 +1,13 @@
-Rust is a curly-brace, block-structured expression language.
-It visually resembles the C language family, but differs significantly in syntactic and semantic details.
-Its design is oriented toward concerns of "programming in the large", that is, of creating
-and maintaining boundaries - both abstract and operational - that preserve large-system integrity,
-availability and concurrency.
+rust (programming language)
 
-It supports a mixture of imperative procedural, concurrent actor, object-oriented and pure functional styles.
-Rust also supports generic programming and metaprogramming, in both static and dynamic styles.
+Rust is a general purpose multi-paradigm compiled programming language
+with a focus on memory safety.
+
+Rust is designed to be a "safe, concurrent, practical language",
+supporting pure-functional, concurrent-actor, imperative-procedural,
+and object-oriented styles.
+
+Rust is developed by Mozilla Research as a system programming language
 
 A short summary of features
 
@@ -17,3 +19,4 @@ Exception handling: unrecoverable unwinding with task isolation
 Memory model: optional task-local GC, safe pointer types with region analysis
 Compilation model: ahead-of-time, C/C++ compatible
 License: dual MIT / Apache 2
+
